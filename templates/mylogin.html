@@ -1,0 +1,35 @@
+{% extends '_layout/base.html' %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+<h4>Авторизация</h4><br>
+
+
+{% if  not user.is_authenticated %}
+<div id="my_form">
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+    <p><input type="submit" value="Войти" /></p>
+    <p><a href="{% url 'register' %}">Регистрация</a></p>
+    </form>
+</div>
+{% else %}
+    <p align="center">Welcome {{ user }}!</p>
+{% endif %}
+
+
+<!--
+{% if form.errors %}
+    <strong>{{ form.errors }}</strong>
+{% endif %}
+
+{% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <strong>{{ error }}</strong>
+        {% endfor %}    
+{% endif %}
+-->
+
+{% endblock %}

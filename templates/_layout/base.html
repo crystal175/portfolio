@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>{% block title %}{% endblock title %}</title>
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/portfolio.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
+    <!--
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
+    -->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    -->
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/picedit.css" />
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/picedit.js"></script>
+
+
+</head>
+<body id="body-color">
+
+<!-- LEFT SIDE -->
+<div id="left_side">left</div>
+<!-- LEFT SIDE -->
+
+
+<!--CONTAINER -->
+<div id="container" style="float:left;">
+
+	<!--Header -->
+	<div>      
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Главная</a></li>
+            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            {% if user.is_authenticated %}
+				<li><a href="{% url 'edit_user' %}">Личный кабинет</a></li>
+				<li><a href="{% url 'logout' %}">Выйти</a></li>
+          	{% else %}
+				<li><a href="{% url 'login' %}">Войти</a></li>
+			{% endif %}
+		</ul>
+		{% if user.is_authenticated %}
+        <div style="float: right;">
+            <img src="{{ user.picture.url }}"
+             width="40" height="40" alt="photo" style="margin-top: 5px;">
+        	<p class="navbar-text navbar-right">
+            {{ user.first_name }} {{ user.last_name|first|add:"." }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </nav>
+    </div>
+    <!--Header -->
+
+
+	<!-- Content -->
+	<div id="content">
+		{% block content %}{% endblock content %}
+	</div>
+	<!-- Content -->
+
+    <!-- Footer -->
+	<div>
+	<nav class="navbar navbar-default" id="footer">
+		<div class="container">
+			<ul class="nav navbar-nav">
+				<li><a href="{% url 'contacts' %}">Контакты</a></li>
+			</ul>
+		</div>
+	</nav>
+	</div>
+    <!-- Footer -->
+
+</div>
+<!--CONTAINER -->
+
+<!-- RIGHT SIDE -->
+<div id="right_side">right</div>
+<!-- RIGHT SIDE -->
+
+
+</body>
+</html>

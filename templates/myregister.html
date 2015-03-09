@@ -1,0 +1,21 @@
+{% extends '_layout/base.html' %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<h4>Регистрация пользователя</h4><br>
+
+{% if user.is_authenticated %}
+    <h4>Hello {{ user }} {{ user.last_name|first|add:"." }}</h4> 
+{% else %}
+<div id="my_form">
+    <form method="post" action="{% url 'register' %}">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <p><input type="submit" value="Отправить" /></p>
+    </form>
+</div>
+{% endif %}
+
+{% endblock %}

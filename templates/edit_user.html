@@ -1,0 +1,32 @@
+{% extends '_layout/base.html' %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block content %}
+<h4>Личный кабинет</h4><br>
+
+{% if user.is_authenticated %}
+
+<div id="my_form">
+    <form method="post" action="{% url 'edit_user' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <!--
+        <p><img src="{{ user.picture.url }}"
+            width="170" height="170">
+        </p>
+        -->
+        <p><input type="submit" value="Сохранить" /></p>        
+    </form>
+    <a href="{% url 'delete_user' %}" onclick="return confirm('Удалить?')">Удалить профиль</a>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $('#id_picture').picEdit();
+    });
+</script>
+
+{% endif %}
+
+{% endblock %}

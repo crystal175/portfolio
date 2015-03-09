@@ -1,0 +1,17 @@
+{% extends '_layout/base.html' %}
+
+{% block title %}Load data page{% endblock %}
+
+{% block content %}
+<h4>Load data page</h4>
+
+{% for item in usr %}
+    <p>{{ item.username }}</p>
+    <img src="{{ item.picture.url }}" width="150" height="150" alt="photo">
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h4>Hello {{ user.first_name }} {{ user.last_name|first|add:"." }}</h4> 
+{% endif %}
+
+{% endblock %}
