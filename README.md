@@ -1,0 +1,1 @@
+In settings.py input email password which used in reqistration form.
