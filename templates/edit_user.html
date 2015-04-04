@@ -1,6 +1,14 @@
 {% extends '_layout/base.html' %}
 
 {% block title %}Личный кабинет{% endblock %}
+{% block picedit %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/picedit.css" />
+    <!--
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    ==>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/picedit.js"></script>
+
+{% endblock %}
 
 {% block content %}
 <h4>Личный кабинет</h4><br>

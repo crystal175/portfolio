@@ -6,18 +6,13 @@
 	<title>{% block title %}{% endblock title %}</title>
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/portfolio.css"/>
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css"/>
-    <!--
+    
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-2.1.3.min.js"></script>
-    -->
     <script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
     <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     -->
-
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/picedit.css" />
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/picedit.js"></script>
-
+    {% block picedit %}{% endblock picedit %}
 
 </head>
 <body id="body-color">
