@@ -5,8 +5,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
-from models import User
-from dash.forms import AuthenticationForm, RegistrationForm, EditForm
+from .models import User
+from .forms import AuthenticationForm, RegistrationForm, EditForm
 
 
 def main(request):
@@ -97,6 +97,7 @@ def edit_user(request):
     else:
         form = EditForm(instance=user)
     return render(request, 'edit_user.html', {'form': form})
+
 
 @login_required
 def delete_user(request):

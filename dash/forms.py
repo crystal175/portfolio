@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from dash.models import User
+from .models import User
 
 from captcha.fields import CaptchaField
 from django.contrib.auth import authenticate
@@ -97,11 +97,7 @@ class AuthenticationForm(forms.Form):
 
     def confirm_login_allowed(self, user):
         """
-        Controls whether the given User may log in. This is a policy setting,
-        independent of end-user authentication. This default behavior is to
-        allow login by active users, and reject login by inactive users.
-        If the given user cannot log in, this method should raise a
-        ``forms.ValidationError``.
+        Controls whether the given User may log in.
         If the given user may log in, this method should return None.
         """
         if not user.is_active:
@@ -118,9 +114,9 @@ class EditForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=16,
                                 label="Пароль")
-    #picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
-    #picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
-    #picture.widget.attrs['id'] = 'test'
+    # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
+    # picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
+    # picture.widget.attrs['id'] = 'test'
 
     class Meta:
         model = User
