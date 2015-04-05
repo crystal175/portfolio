@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 
 from models import User
@@ -13,7 +14,7 @@ def main(request):
 
 def contacts(request):
     """
-    Coantacts page view.
+    Contacts page view.
     """
     return render(request, 'contacts.html')
 
@@ -22,7 +23,7 @@ def load_data(request):
     Test view
     """
     usr = User.objects.all()
-    return render(request, 'load_data.html', { 'usr': usr })
+    return render(request, 'load_data.html', {'usr': usr})
 
 ####################################
 
@@ -53,11 +54,11 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
-            subject = 'Регистрация на сайте'
+            subject = 'Registration on site'
             from_email = 'crystal-man@list.ru'
             username=request.POST['username']
             email=request.POST['email']          
-            message = u'Вы зарегистрировались под ником - %s' % username
+            message = u'You registered with nickname - %s' % username
             send_mail(subject, message, from_email, [email])
             
             human = True
@@ -70,7 +71,7 @@ def register(request):
     }, context_instance=RequestContext(request))
 
 
-
+@login_required
 def logout_user(request):
     """
     Log out view.
@@ -79,6 +80,7 @@ def logout_user(request):
     return redirect('/')   
 
 
+@login_required
 def edit_user(request):
     """
     User edit view.
@@ -96,7 +98,7 @@ def edit_user(request):
         form = EditForm(instance=user)
     return render(request, 'edit_user.html', {'form': form})
 
-
+@login_required
 def delete_user(request):
     """
     Delete user account.
