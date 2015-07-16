@@ -13,24 +13,18 @@ def main(request):
     return render(request, 'main.html')
 
 def contacts(request):
-    """
-    Contacts page view.
-    """
+    """ Contacts page view. """
     return render(request, 'contacts.html')
 
 def load_data(request):
-    """
-    Test view
-    """
+    """ Test view. """
     usr = User.objects.all()
     return render(request, 'load_data.html', {'usr': usr})
 
 ####################################
 
 def login_user(request):
-    """
-    Log in view
-    """
+    """ User login view. """
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
@@ -48,9 +42,7 @@ def login_user(request):
 
 
 def register(request):
-    """
-    User registration view.
-    """
+    """ User registration view. """
     if request.method == 'POST':
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
@@ -66,25 +58,20 @@ def register(request):
             return redirect('/dash/login/')
     else:
         form = RegistrationForm()
-    return render_to_response('myregister.html', {
-        'form': form,
-    }, context_instance=RequestContext(request))
+    return render_to_response('myregister.html', {'form': form,},
+                              context_instance=RequestContext(request))
 
 
 @login_required
 def logout_user(request):
-    """
-    Log out view.
-    """
+    """ User logout view. """
     logout(request)
     return redirect('/')   
 
 
 @login_required
 def edit_user(request):
-    """
-    User edit view.
-    """
+    """ User edit view. """
     user = request.user
     
     if request.method == 'POST':
@@ -101,9 +88,7 @@ def edit_user(request):
 
 @login_required
 def delete_user(request):
-    """
-    Delete user account.
-    """
+    """ Delete user account view. """
     m = User.objects.get(username=request.user)
     m.delete()
     return redirect('/')

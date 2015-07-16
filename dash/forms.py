@@ -1,35 +1,27 @@
 # -*- coding: utf-8 -*-
-
 from django import forms
-from .models import User
-
-from captcha.fields import CaptchaField
 from django.contrib.auth import authenticate
+from captcha.fields import CaptchaField
+
+from .models import User
 
 
 class RegistrationForm(forms.ModelForm):
-    """
-    User registration view.
-    """
+    """ User registration view. """
 
     error_css_class = 'error'
 
-    username = forms.CharField(widget=forms.TextInput,
-                                label="Логин")
+    username = forms.CharField(widget=forms.TextInput, 
+                               label="Логин")
     password1 = forms.CharField(widget=forms.PasswordInput,
-                                min_length=6, max_length=16,
-                                label="Пароль")
-    password2 = forms.CharField(widget=forms.PasswordInput,
-                                min_length=6, max_length=16,
+                                min_length=6, max_length=16, label="Пароль")
+    password2 = forms.CharField(widget=forms.PasswordInput, 
+                                min_length=6, max_length=16, 
                                 label="Подтвердите пароль")
-    email = forms.CharField(widget=forms.TextInput,
-                                label="E-mail")
-    birth_date = forms.DateField(widget=forms.TextInput,
-                                label="Дата рождения")
-    first_name = forms.CharField(widget=forms.TextInput,
-                                label="Имя")
-    last_name = forms.CharField(widget=forms.TextInput,
-                                label="Фамилия")
+    email = forms.CharField(widget=forms.TextInput, label="E-mail")
+    birth_date = forms.DateField(widget=forms.TextInput, label="Дата рождения")
+    first_name = forms.CharField(widget=forms.TextInput, label="Имя")
+    last_name = forms.CharField(widget=forms.TextInput, label="Фамилия")
     phone = forms.RegexField(regex=r'^0\d{2}-\d{7}$',
                             error_messages = {'invalid':
                             "Неверный формат. Пример: 0xx-xxxxxxx"} )
@@ -60,21 +52,17 @@ class RegistrationForm(forms.ModelForm):
 
 
 class AuthenticationForm(forms.Form):
-    """
-    User authenticate form.
-    """
+    """ User authenticate form. """
 
     error_messages = {
         'invalid_login': "Please enter a correct username and password. ",
         'inactive': "This account is inactive.",}
 
-    username = forms.CharField(widget=forms.TextInput,
-                                label="Логин",
-                                error_messages={'required': 'Please enter your name'},
-                                # help_text='must be unique'
-                                )
-    password = forms.CharField(widget=forms.PasswordInput,
-                                label="Пароль")
+    username = forms.CharField(widget=forms.TextInput, label="Логин",
+                               error_messages={'required': 'Please enter your name'},
+                               # help_text='must be unique'
+                               )
+    password = forms.CharField(widget=forms.PasswordInput, label="Пароль")
 
     class Meta:
         fields = ['username', 'password']
@@ -83,8 +71,8 @@ class AuthenticationForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         if username and password:
-            self.user_cache = authenticate(username=username,
-                                            password=password)
+            self.user_cache = authenticate(username=username, 
+                                           password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(
                     self.error_messages['invalid_login'],
@@ -108,12 +96,9 @@ class AuthenticationForm(forms.Form):
 
 
 class EditForm(forms.ModelForm):
-    """
-    User edit form.
-    """
-    password = forms.CharField(widget=forms.PasswordInput,
-                                min_length=6, max_length=16,
-                                label="Пароль")
+    """ User edit form. """
+    password = forms.CharField(widget=forms.PasswordInput, 
+                               min_length=6, max_length=16, label="Пароль")
     # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
     # picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
     # picture.widget.attrs['id'] = 'test'

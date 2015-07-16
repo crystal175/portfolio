@@ -11,18 +11,17 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=30, unique=True,
                                 db_index=True, verbose_name="Логин")
     # password = models.CharField(max_length=16)
-    first_name = models.CharField(max_length=30, blank=True,
-                                    verbose_name="Имя")
-    last_name = models.CharField(max_length=30, blank=True,
-                                    verbose_name="Фамилия")
-    email = models.EmailField(blank=True, unique=True,
-                                db_index=True, verbose_name="Email")
+    first_name = models.CharField(max_length=30, blank=True, verbose_name="Имя")
+    last_name = models.CharField(max_length=30, blank=True, 
+                                 verbose_name="Фамилия")
+    email = models.EmailField(blank=True, unique=True, db_index=True, 
+                              verbose_name="Email")
     birth_date = models.DateField(auto_now=False, verbose_name="Дата рождения")
     joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    phone = models.CharField(max_length=12, blank=True,
-                                verbose_name="Телефон")
+    phone = models.CharField(max_length=12, blank=True, 
+                             verbose_name="Телефон")
     picture = models.ImageField(upload_to='photos/',
                                 default='photos/def.jpeg',
                                 verbose_name='Аватар')
