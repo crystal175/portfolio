@@ -10,6 +10,7 @@ from .forms import AuthenticationForm, RegistrationForm, EditForm
 
 
 def main(request):
+    """ Main page view. """
     return render(request, 'main.html')
 
 def contacts(request):
@@ -20,8 +21,6 @@ def load_data(request):
     """ Test view. """
     usr = User.objects.all()
     return render(request, 'load_data.html', {'usr': usr})
-
-####################################
 
 def login_user(request):
     """ User login view. """
@@ -61,7 +60,6 @@ def register(request):
     return render_to_response('myregister.html', {'form': form,},
                               context_instance=RequestContext(request))
 
-
 @login_required
 def logout_user(request):
     """ User logout view. """
@@ -73,7 +71,6 @@ def logout_user(request):
 def edit_user(request):
     """ User edit view. """
     user = request.user
-    
     if request.method == 'POST':
         form = EditForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
@@ -92,3 +89,4 @@ def delete_user(request):
     m = User.objects.get(username=request.user)
     m.delete()
     return redirect('/')
+

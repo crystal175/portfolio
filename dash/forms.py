@@ -7,12 +7,10 @@ from .models import User
 
 
 class RegistrationForm(forms.ModelForm):
-    """ User registration view. """
+    """ User registration form. """
 
     error_css_class = 'error'
-
-    username = forms.CharField(widget=forms.TextInput, 
-                               label="Логин")
+    username = forms.CharField(widget=forms.TextInput, label="Логин")
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=16, label="Пароль")
     password2 = forms.CharField(widget=forms.PasswordInput, 
@@ -23,8 +21,7 @@ class RegistrationForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput, label="Имя")
     last_name = forms.CharField(widget=forms.TextInput, label="Фамилия")
     phone = forms.RegexField(regex=r'^0\d{2}-\d{7}$',
-                            error_messages = {'invalid':
-                            "Неверный формат. Пример: 0xx-xxxxxxx"} )
+                             error_messages = {'invalid': "Пример: 0xx-xxxxxxx"})
     captcha = CaptchaField()
 
     class Meta:
@@ -57,7 +54,6 @@ class AuthenticationForm(forms.Form):
     error_messages = {
         'invalid_login': "Please enter a correct username and password. ",
         'inactive': "This account is inactive.",}
-
     username = forms.CharField(widget=forms.TextInput, label="Логин",
                                error_messages={'required': 'Please enter your name'},
                                # help_text='must be unique'
@@ -96,7 +92,8 @@ class AuthenticationForm(forms.Form):
 
 
 class EditForm(forms.ModelForm):
-    """ User edit form. """
+    """ User edit form based on model fields. """
+
     password = forms.CharField(widget=forms.PasswordInput, 
                                min_length=6, max_length=16, label="Пароль")
     # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
