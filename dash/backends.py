@@ -3,14 +3,10 @@ from django.contrib.auth.models import check_password
 from dash.models import User
 
 class MyAuthBackend(object):
-    """
-    A custom authentication backend. 
-    """
+    """ A custom authentication backend. """
 
     def authenticate(self, username=None, password=None):
-        """
-        Authentication method
-        """
+        """ Authentication method. """
         try:
             user = User.objects.get(username=username)
             if user.check_password(password):

@@ -7,10 +7,9 @@ import datetime
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-
+    """ Custom user class. """
     username = models.CharField(max_length=30, unique=True,
                                 db_index=True, verbose_name="Логин")
-    # password = models.CharField(max_length=16)
     first_name = models.CharField(max_length=30, blank=True, verbose_name="Имя")
     last_name = models.CharField(max_length=30, blank=True, 
                                  verbose_name="Фамилия")
