@@ -4,23 +4,10 @@
 
 {% block content %}
 
-	<h4>Конохович Алексей</h4>
-
-<img src="{{ STATIC_URL }}img/photo.jpeg" alt="foto" class="center">
-
-<div id="main_page">
-<dl class="dl-horizontal"><br>
-	<dt>Date of birth:</dt><dd>03.10.1987</dd>
-	<dt>Email:</dt><dd>crystalman87@gmail.com</dd>
-	<dt>Skype:</dt><dd>cry187</dd>
-	<dt>Job title</dt><dd>Junior Django Developer</dd>
-	<dt>Skills:</dt><dd>Python</dd>
-					<dd>Django, Flask</dd>
-					<dd>Javascript (JQuery)</dd>
-					<dd>Firebird, MySQL, PostgreSQL</dd>
-					<dd>HTML, CSS</dd>
-					<dd>Git</dd>
-					<dd>Linux (Debian, Ubuntu)</dd>
-</dl>
+	<h4>Welcome to portfolio app</h4>
+<div>
+<p align="center">Please login or registrate
+<a href="{% url 'login' %}">Login</a></p>
 </div>
+
 {% endblock content %}

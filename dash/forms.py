@@ -10,18 +10,18 @@ class RegistrationForm(forms.ModelForm):
     """ User registration form. """
 
     error_css_class = 'error'
-    username = forms.CharField(widget=forms.TextInput, label="Логин")
+    username = forms.CharField(widget=forms.TextInput, label="Login")
     password1 = forms.CharField(widget=forms.PasswordInput,
-                                min_length=6, max_length=16, label="Пароль")
+                                min_length=6, max_length=16, label="Password")
     password2 = forms.CharField(widget=forms.PasswordInput, 
                                 min_length=6, max_length=16, 
-                                label="Подтвердите пароль")
+                                label="Confirm password")
     email = forms.CharField(widget=forms.TextInput, label="E-mail")
-    birth_date = forms.DateField(widget=forms.TextInput, label="Дата рождения")
-    first_name = forms.CharField(widget=forms.TextInput, label="Имя")
-    last_name = forms.CharField(widget=forms.TextInput, label="Фамилия")
+    birth_date = forms.DateField(widget=forms.TextInput, label="Birth date")
+    first_name = forms.CharField(widget=forms.TextInput, label="Name")
+    last_name = forms.CharField(widget=forms.TextInput, label="Surname")
     phone = forms.RegexField(regex=r'^0\d{2}-\d{7}$',
-                             error_messages = {'invalid': "Пример: 0xx-xxxxxxx"})
+                             error_messages = {'invalid': "Pattern: 0xx-xxxxxxx"})
     captcha = CaptchaField()
 
     class Meta:
@@ -54,11 +54,11 @@ class AuthenticationForm(forms.Form):
     error_messages = {
         'invalid_login': "Please enter a correct username and password. ",
         'inactive': "This account is inactive.",}
-    username = forms.CharField(widget=forms.TextInput, label="Логин",
+    username = forms.CharField(widget=forms.TextInput, label="Login",
                                error_messages={'required': 'Please enter your name'},
                                # help_text='must be unique'
                                )
-    password = forms.CharField(widget=forms.PasswordInput, label="Пароль")
+    password = forms.CharField(widget=forms.PasswordInput, label="Password")
 
     class Meta:
         fields = ['username', 'password']
@@ -95,7 +95,7 @@ class EditForm(forms.ModelForm):
     """ User edit form based on model fields. """
 
     password = forms.CharField(widget=forms.PasswordInput, 
-                               min_length=6, max_length=16, label="Пароль")
+                               min_length=6, max_length=16, label="Password")
     # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
     # picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
     # picture.widget.attrs['id'] = 'test'

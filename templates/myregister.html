@@ -1,9 +1,9 @@
 {% extends '_layout/base.html' %}
 
-{% block title %}Регистрация{% endblock %}
+{% block title %}Registration page{% endblock %}
 
 {% block content %}
-<h4>Регистрация пользователя</h4><br>
+<h4>User registration</h4><br>
 
 {% if user.is_authenticated %}
     <h4>Hello {{ user }} {{ user.last_name|first|add:"." }}</h4> 
@@ -13,7 +13,7 @@
         {% csrf_token %}
         {{form.as_p}}
 
-        <p><input type="submit" value="Отправить" /></p>
+        <p><input type="submit" value="Send" /></p>
     </form>
 </div>
 {% endif %}

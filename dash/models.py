@@ -9,21 +9,21 @@ import datetime
 class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user class. """
     username = models.CharField(max_length=30, unique=True,
-                                db_index=True, verbose_name="Логин")
-    first_name = models.CharField(max_length=30, blank=True, verbose_name="Имя")
+                                db_index=True, verbose_name="Login")
+    first_name = models.CharField(max_length=30, blank=True, verbose_name="Name")
     last_name = models.CharField(max_length=30, blank=True, 
-                                 verbose_name="Фамилия")
+                                 verbose_name="Surname")
     email = models.EmailField(blank=True, unique=True, db_index=True, 
-                              verbose_name="Email")
-    birth_date = models.DateField(auto_now=False, verbose_name="Дата рождения")
+                              verbose_name="E-mail")
+    birth_date = models.DateField(auto_now=False, verbose_name="Birth date")
     joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     phone = models.CharField(max_length=12, blank=True, 
-                             verbose_name="Телефон")
+                             verbose_name="Phone")
     picture = models.ImageField(upload_to='photos/',
                                 default='photos/def.jpeg',
-                                verbose_name='Аватар')
+                                verbose_name='Avatar')
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'

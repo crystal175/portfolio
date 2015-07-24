@@ -23,13 +23,13 @@
   }
   #left_side{
     float:left;
-    background: #001D00;
+    background: #001A33;
     width:15%;
     min-height: 1000px;
   }
   #right_side{
     float:right;
-    background: #001D00;
+    background: #001A33;
     width:15%;
     min-height: 1000px;
   }

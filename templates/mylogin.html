@@ -1,9 +1,9 @@
 {% extends '_layout/base.html' %}
 
-{% block title %}Авторизация{% endblock %}
+{% block title %}Login page{% endblock %}
 
 {% block content %}
-<h4>Авторизация</h4><br>
+<h4>Log in</h4><br>
 
 
 {% if  not user.is_authenticated %}
@@ -11,8 +11,8 @@
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{form.as_p}}
-    <p><input type="submit" value="Войти" /></p>
-    <p><a href="{% url 'register' %}">Регистрация</a></p>
+    <p><input type="submit" value="Log in" /></p>
+    <p><a href="{% url 'register' %}">Registration</a></p>
     </form>
 </div>
 {% else %}

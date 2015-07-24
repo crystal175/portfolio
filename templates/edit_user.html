@@ -1,13 +1,13 @@
 {% extends '_layout/base.html' %}
 
-{% block title %}Личный кабинет{% endblock %}
+{% block title %}Personal page{% endblock %}
 {% block picedit %}
     <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/picedit.css" />
     <script type="text/javascript" src="{{ STATIC_URL }}js/picedit.js"></script>
 {% endblock %}
 
 {% block content %}
-<h4>Личный кабинет</h4><br>
+<h4>Personal page</h4><br>
 
 {% if user.is_authenticated %}
 <div id="my_form">
@@ -19,9 +19,9 @@
             width="170" height="170">
         </p>
         -->
-        <p><input type="submit" value="Сохранить" /></p>        
+        <p><input type="submit" value="Save" /></p>        
     </form>
-    <a href="{% url 'delete_user' %}" onclick="return confirm('Удалить?')">Удалить профиль</a>
+    <a href="{% url 'delete_user' %}" onclick="return confirm('Удалить?')">Delete profile</a>
 </div>
 
 <script type="text/javascript">
