@@ -46,7 +46,8 @@ def register(request):
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
             subject = 'Registration on site'
-            from_email = 'crystal-man@list.ru'
+            # from_email = 'user@mail.ru'
+            from_email = ''
             username=request.POST['username']
             email=request.POST['email']          
             message = u'You registered with nickname - %s' % username
