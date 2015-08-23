@@ -1,25 +1,24 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from django.core import validators
-
-import datetime
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user class. """
+
     username = models.CharField(max_length=30, unique=True,
                                 db_index=True, verbose_name="Login")
-    first_name = models.CharField(max_length=30, blank=True, verbose_name="Name")
-    last_name = models.CharField(max_length=30, blank=True, 
+    first_name = models.CharField(max_length=30, blank=True,
+                                  verbose_name="Name")
+    last_name = models.CharField(max_length=30, blank=True,
                                  verbose_name="Surname")
-    email = models.EmailField(blank=True, unique=True, db_index=True, 
+    email = models.EmailField(blank=True, unique=True, db_index=True,
                               verbose_name="E-mail")
     birth_date = models.DateField(auto_now=False, verbose_name="Birth date")
     joined = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    phone = models.CharField(max_length=12, blank=True, 
+    phone = models.CharField(max_length=12, blank=True,
                              verbose_name="Phone")
     picture = models.ImageField(upload_to='photos/',
                                 default='photos/def.jpeg',
@@ -37,4 +36,3 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.first_name
-

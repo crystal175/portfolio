@@ -13,27 +13,30 @@ class RegistrationForm(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput, label="Login")
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 min_length=6, max_length=16, label="Password")
-    password2 = forms.CharField(widget=forms.PasswordInput, 
-                                min_length=6, max_length=16, 
+    password2 = forms.CharField(widget=forms.PasswordInput,
+                                min_length=6, max_length=16,
                                 label="Confirm password")
     email = forms.CharField(widget=forms.TextInput, label="E-mail")
     birth_date = forms.DateField(widget=forms.TextInput, label="Birth date")
     first_name = forms.CharField(widget=forms.TextInput, label="Name")
     last_name = forms.CharField(widget=forms.TextInput, label="Surname")
     phone = forms.RegexField(regex=r'^0\d{2}-\d{7}$',
-                             error_messages = {'invalid': "Pattern: 0xx-xxxxxxx"})
+                             error_messages={'invalid':
+                                             "Pattern: 0xx-xxxxxxx"})
     captcha = CaptchaField()
 
     class Meta:
         model = User
-        fields = [ 'last_name', 'first_name', 'username',
-                    'password1', 'password2', 'email',
-                    'birth_date', 'phone' ]
+        fields = ['last_name', 'first_name', 'username',
+                  'password1', 'password2', 'email',
+                  'birth_date', 'phone']
 
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()
-        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
-            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+        if 'password1' in self.cleaned_data and \
+           'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] != \
+               self.cleaned_data['password2']:
                 raise forms.ValidationError("Passwords don't match.")
         # if len(self.cleaned_data['password1']) < 7:
         #   self.add_error('password1', 'short password')
@@ -52,10 +55,11 @@ class AuthenticationForm(forms.Form):
     """ User authenticate form. """
 
     error_messages = {
-        'invalid_login': "Please enter a correct username and password. ",
-        'inactive': "This account is inactive.",}
+        'invalid_login': "Please enter a correct username and password.",
+        'inactive': "This account is inactive."}
     username = forms.CharField(widget=forms.TextInput, label="Login",
-                               error_messages={'required': 'Please enter your name'},
+                               error_messages={'required':
+                                               'Please enter your name'},
                                # help_text='must be unique'
                                )
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
@@ -67,7 +71,7 @@ class AuthenticationForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         if username and password:
-            self.user_cache = authenticate(username=username, 
+            self.user_cache = authenticate(username=username,
                                            password=password)
             if self.user_cache is None:
                 raise forms.ValidationError(
@@ -94,7 +98,7 @@ class AuthenticationForm(forms.Form):
 class EditForm(forms.ModelForm):
     """ User edit form based on model fields. """
 
-    password = forms.CharField(widget=forms.PasswordInput, 
+    password = forms.CharField(widget=forms.PasswordInput,
                                min_length=6, max_length=16, label="Password")
     # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
     # picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
@@ -102,9 +106,8 @@ class EditForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = [ 'last_name', 'first_name', 'username',
-                    'password', 'email', 'birth_date',
-                    'phone', 'picture' ]
+        fields = ['last_name', 'first_name', 'username', 'password', 'email',
+                  'birth_date', 'phone', 'picture']
 
     def clean(self):
         cleaned_data = super(EditForm, self).clean()
@@ -116,5 +119,3 @@ class EditForm(forms.ModelForm):
         if commit:
             user.save()
         return user
-
-

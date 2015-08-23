@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, redirect, render_to_response, get_object_or_404
+from django.shortcuts import render, redirect, render_to_response
 from django.template import RequestContext
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -13,14 +13,17 @@ def main(request):
     """ Main page view. """
     return render(request, 'main.html')
 
+
 def contacts(request):
     """ Contacts page view. """
     return render(request, 'contacts.html')
+
 
 def load_data(request):
     """ Test view. """
     usr = User.objects.all()
     return render(request, 'load_data.html', {'usr': usr})
+
 
 def login_user(request):
     """ User login view. """
@@ -48,24 +51,24 @@ def register(request):
             subject = 'Registration on site'
             # from_email = 'user@mail.ru'
             from_email = ''
-            username=request.POST['username']
-            email=request.POST['email']          
+            username = request.POST['username']
+            email = request.POST['email']
             message = u'You registered with nickname - %s' % username
             send_mail(subject, message, from_email, [email])
-            
             human = True
             user = form.save()
             return redirect('/dash/login/')
     else:
         form = RegistrationForm()
-    return render_to_response('myregister.html', {'form': form,},
+    return render_to_response('myregister.html', {'form': form},
                               context_instance=RequestContext(request))
+
 
 @login_required
 def logout_user(request):
     """ User logout view. """
     logout(request)
-    return redirect('/')   
+    return redirect('/')
 
 
 @login_required
@@ -76,7 +79,7 @@ def edit_user(request):
         form = EditForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
             m = User.objects.get(username=form.cleaned_data['username'])
-            m.picture  = form.cleaned_data['picture']
+            m.picture = form.cleaned_data['picture']
             form.save()
             return redirect('/dash/login/')
     else:
@@ -90,4 +93,3 @@ def delete_user(request):
     m = User.objects.get(username=request.user)
     m.delete()
     return redirect('/')
-

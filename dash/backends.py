@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import check_password
 from dash.models import User
 
+
 class MyAuthBackend(object):
     """ A custom authentication backend. """
 
