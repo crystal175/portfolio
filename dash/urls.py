@@ -6,9 +6,7 @@ urlpatterns = patterns(
     '',
     url(r'^main/$', views.main, name='dash_main'),
     url(r'^contacts/$', views.contacts, name='contacts'),
-    url(r'^load_data/$', views.load_data, name='load_data'),
     url(r'^captcha/', include('captcha.urls')),
-
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout_user, name='logout'),

@@ -19,12 +19,6 @@ def contacts(request):
     return render(request, 'contacts.html')
 
 
-def load_data(request):
-    """ Test view. """
-    usr = User.objects.all()
-    return render(request, 'load_data.html', {'usr': usr})
-
-
 def login_user(request):
     """ User login view. """
     if request.method == 'POST':
