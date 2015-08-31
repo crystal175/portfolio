@@ -32,9 +32,8 @@ def login_user(request):
                     return render(request, 'mylogin.html')
     else:
         form = AuthenticationForm()
-    return render_to_response('mylogin.html', {
-        'form': form,
-    }, context_instance=RequestContext(request))
+    return render_to_response('mylogin.html', {'form': form},
+                              context_instance=RequestContext(request))
 
 
 def register(request):
