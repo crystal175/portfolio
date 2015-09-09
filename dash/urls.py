@@ -1,12 +1,11 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
 from . import views
 
 
 urlpatterns = patterns(
     '',
-    url(r'^main/$', views.main, name='dash_main'),
+    url(r'^main/$', views.main, name='main'),
     url(r'^contacts/$', views.contacts, name='contacts'),
-    url(r'^captcha/', include('captcha.urls')),
     url(r'^register/$', views.register, name='register'),
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout_user, name='logout'),

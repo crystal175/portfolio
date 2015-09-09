@@ -9,5 +9,6 @@ urlpatterns = patterns(
     '',
     url(r'^$', views.main, name='main'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^dash/', include('dash.urls')),
+    url(r'^dash/', include('dash.urls', namespace="dash")),
+    url(r'^captcha/', include('captcha.urls')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

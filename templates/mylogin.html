@@ -8,11 +8,11 @@
 
 {% if  not user.is_authenticated %}
 <div id="my_form">
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'dash:login' %}">
         {% csrf_token %}
         {{form.as_p}}
     <p><input type="submit" value="Log in" /></p>
-    <p><a href="{% url 'register' %}">Registration</a></p>
+    <p><a href="{% url 'dash:register' %}">Registration</a></p>
     </form>
 </div>
 {% else %}

@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 
 from .models import User
 from .forms import AuthenticationForm, RegistrationForm, EditForm
@@ -50,7 +51,7 @@ def register(request):
             send_mail(subject, message, from_email, [email])
             human = True
             user = form.save()
-            return redirect('/dash/login/')
+            return redirect(reverse('dash:login'))
     else:
         form = RegistrationForm()
     return render_to_response('myregister.html', {'form': form},
@@ -61,7 +62,7 @@ def register(request):
 def logout_user(request):
     """ User logout view. """
     logout(request)
-    return redirect('/')
+    return redirect(reverse('dash:main'))
 
 
 @login_required
@@ -74,7 +75,7 @@ def edit_user(request):
             m = User.objects.get(username=form.cleaned_data['username'])
             m.picture = form.cleaned_data['picture']
             form.save()
-            return redirect('/dash/login/')
+            return redirect(reverse('dash:login'))
     else:
         form = EditForm(instance=user)
     return render(request, 'edit_user.html', {'form': form})
@@ -85,4 +86,4 @@ def delete_user(request):
     """ Delete user account view. """
     m = User.objects.get(username=request.user)
     m.delete()
-    return redirect('/')
+    return redirect(reverse('dash:main'))

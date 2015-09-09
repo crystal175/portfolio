@@ -9,7 +9,7 @@
     <h4>Hello {{ user }} {{ user.last_name|first|add:"." }}</h4> 
 {% else %}
 <div id="my_form">
-    <form method="post" action="{% url 'register' %}">
+    <form method="post" action="{% url 'dash:register' %}">
         {% csrf_token %}
         {{form.as_p}}
 
