@@ -33,14 +33,11 @@ class RegistrationForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()
-        if 'password1' in self.cleaned_data and \
-           'password2' in self.cleaned_data:
-            if self.cleaned_data['password1'] != \
-               self.cleaned_data['password2']:
+        if 'password1' in cleaned_data and \
+           'password2' in cleaned_data:
+            if cleaned_data['password1'] != \
+               cleaned_data['password2']:
                 raise forms.ValidationError("Passwords don't match.")
-        # if len(self.cleaned_data['password1']) < 7:
-        #   self.add_error('password1', 'short password')
-
         return self.cleaned_data
 
     def save(self, commit=True):
@@ -59,9 +56,7 @@ class AuthenticationForm(forms.Form):
         'inactive': "This account is inactive."}
     username = forms.CharField(widget=forms.TextInput, label="Login",
                                error_messages={'required':
-                                               'Please enter your name'},
-                               # help_text='must be unique'
-                               )
+                                               'Please enter your name'})
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
 
     class Meta:
@@ -76,9 +71,7 @@ class AuthenticationForm(forms.Form):
             if self.user_cache is None:
                 raise forms.ValidationError(
                     self.error_messages['invalid_login'],
-                    # code='invalid_login',
-                    # params={'username': username},
-                    )
+                )
             else:
                 self.confirm_login_allowed(self.user_cache)
         return self.cleaned_data
@@ -101,17 +94,14 @@ class EditForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput,
                                min_length=6, max_length=16, label="Password")
     # picture = forms.CharField(widget=forms.FileInput(attrs={'id': 'image'}))
-    # picture = forms.CharField(widget=forms.ClearableFileInput(attrs={'accept':'photos/', 'upload_to': 'photos/'}))
+    # picture = forms.CharField(widget=forms.ClearableFileInput(
+    #    attrs={'accept':'photos/', 'upload_to': 'photos/'}))
     # picture.widget.attrs['id'] = 'test'
 
     class Meta:
         model = User
         fields = ['last_name', 'first_name', 'username', 'password', 'email',
                   'birth_date', 'phone', 'picture']
-
-    def clean(self):
-        cleaned_data = super(EditForm, self).clean()
-        return self.cleaned_data
 
     def save(self, commit=True):
         user = super(EditForm, self).save(commit=False)
