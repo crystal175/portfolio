@@ -25,8 +25,9 @@ def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            user = authenticate(username=request.POST['username'],
-                                password=request.POST['password'])
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -43,14 +44,13 @@ def register(request):
         form = RegistrationForm(data=request.POST)
         if form.is_valid():
             subject = 'Registration on site'
-            # from_email = 'user@mail.ru'
             from_email = ''
-            username = request.POST['username']
-            email = request.POST['email']
+            username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             message = u'You registered with nickname - %s' % username
             send_mail(subject, message, from_email, [email])
             human = True
-            user = form.save()
+            form.save()
             return redirect(reverse('dash:login'))
     else:
         form = RegistrationForm()
@@ -72,8 +72,10 @@ def edit_user(request):
     if request.method == 'POST':
         form = EditForm(request.POST, request.FILES, instance=user)
         if form.is_valid():
-            m = User.objects.get(username=form.cleaned_data['username'])
-            m.picture = form.cleaned_data['picture']
+            username = form.cleaned_data.get('username')
+            picture = form.cleaned_data.get('picture')
+            usr = User.objects.get(username=username)
+            usr.picture = picture
             form.save()
             return redirect(reverse('dash:login'))
     else:
@@ -84,6 +86,6 @@ def edit_user(request):
 @login_required
 def delete_user(request):
     """ Delete user account view. """
-    m = User.objects.get(username=request.user)
-    m.delete()
+    usr = User.objects.get(username=request.user)
+    usr.delete()
     return redirect(reverse('dash:main'))
